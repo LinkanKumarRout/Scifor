@@ -212,3 +212,86 @@ The Global Interpreter Lock (GIL) is a mutex (lock) that protects access to Pyth
 
 - Alternative Approaches: To achieve true parallelism and utilize multiple CPU cores, Python developers often use multiprocessing or asynchronous programming with libraries like asyncio. These approaches involve running multiple Python processes or using cooperative multitasking (event loops) to achieve concurrency without the limitations of the GIL.
 '''
+#15. Difference between shallow copy and deep copy ?
+'''
+Shallow Copy:
+A shallow copy creates a new object but does not recursively copy nested objects within the original object. Instead, it copies the references to the nested objects. As a result, changes made to nested objects in the copied object will also affect the original object, and vice versa.
+
+import copy
+original_list = [[1, 2, 3], [4, 5, 6]]
+shallow_copy = copy.copy(original_list)
+
+# Modify a nested object in the shallow copy
+shallow_copy[0][0] = 0
+print(original_list)  # Output: [[0, 2, 3], [4, 5, 6]]
+
+Deep Copy:
+A deep copy, on the other hand, recursively copies all objects within the original object, creating completely independent copies. Changes made to nested objects in the copied object will not affect the original object, and vice versa.
+
+import copy
+original_list = [[1, 2, 3], [4, 5, 6]]
+deep_copy = copy.deepcopy(original_list)
+
+# Modify a nested object in the deep copy
+deep_copy[0][0] = 0
+
+print(original_list)  # Output: [[1, 2, 3], [4, 5, 6]]
+'''
+#16. Explain the purpose of __init__() in python classes.
+'''
+The __init__ method in Python classes is a special method used for initializing objects when they are created. It serves as a constructor for the class and is automatically called when an instance of the class is created. The purpose of the __init__ method is to initialize the attributes (properties) of the object to their initial values or to perform any other setup that needs to be done when the object is created.
+'''
+#17. What is Metaclasses in python. explain their usage.
+'''
+Metaclasses are classes that define the behavior of other classes. They are responsible for creating classes, just like classes are responsible for creating objects. In Python, everything is an object, including classes. Therefore, classes themselves are instances of metaclasses. They are often used in advanced scenarios where you need to alter the default behavior of class creation or perform some additional actions during class creation.
+class MyMeta(type):
+    def __new__(cls, name, bases, attrs):
+        # Add custom behavior here
+        return super().__new__(cls, name, bases, attrs)
+
+class MyClass(metaclass=MyMeta):
+    pass
+'''
+#18. Describe the difference between __getattr__ and __getattribute__ in python.
+'''
+__getattr__(self, name): This method is called when an attribute lookup fails. It is invoked only if the attribute being accessed is not found through the usual lookup process. For example, if you try to access an attribute that does not exist, Python will call __getattr__ with the name of the attribute as an argument.
+class MyClass:
+    def __getattr__(self, name):
+        return f"Attribute '{name}' not found"
+
+obj = MyClass()
+print(obj.some_attribute)  # Output: Attribute 'some_attribute' not found
+
+__getattribute__(self, name): This method is called for every attribute access on an instance of the class. It is invoked before looking at the instance's dictionary, even for existing attributes. This makes it more powerful but also more dangerous to use, as it can override access to all attributes, including built-in ones.
+class MyClass:
+    def __getattribute__(self, name):
+        print(f"Accessing attribute '{name}'")
+        # Avoid infinite recursion by using super()
+        return super().__getattribute__(name)
+
+obj = MyClass()
+obj.some_attribute  # Output: Accessing attribute 'some_attribute'
+'''
+#19. How does the python manage memory .
+'''
+Python manages memory dynamically through a mechanism called "automatic memory management" or "garbage collection."
+Some techniques involved in memory management are:
+- Momory Allocation dynamically from heap
+- Reference counting
+- Garbage collection
+and memory management optimisation
+'''
+#20. Discuss the concept of namespaces and scope resolution in python.
+'''
+Namespace is a mapping from names to objects. It serves as a container for variables, functions, classes, and other objects. Namespaces are used to organize and manage the names (or identifiers) used in a Python program, preventing naming conflicts and providing a way to access and reference objects.
+- Local Namespace: The local namespace contains names that are defined within a function.
+- Global Namespace: The global namespace contains names that are defined at the top level of a module or script.
+- Built-in Namespace: The built-in namespace contains names of built-in functions, exceptions, and other objects that are available by default in Python.
+
+Scope resolution refers to the process of determining the namespace in which a name is looked up and the order in which namespaces are searched to find the corresponding object. Python uses the LEGB rule to resolve names:
+
+Local: Names are first looked up in the local namespace (local scope) of the current function.
+Enclosing: If the name is not found in the local namespace, Python searches the enclosing namespaces (enclosing scopes) of any enclosing functions, from inner to outer.
+Global: If the name is still not found, Python searches the global namespace (global scope) of the module or script.
+Built-in: If the name is not found in the global namespace, Python finally searches the built-in namespace.
+'''
