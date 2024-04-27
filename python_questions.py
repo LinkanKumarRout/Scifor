@@ -295,3 +295,37 @@ Enclosing: If the name is not found in the local namespace, Python searches the 
 Global: If the name is still not found, Python searches the global namespace (global scope) of the module or script.
 Built-in: If the name is not found in the global namespace, Python finally searches the built-in namespace.
 '''
+#21. Explain the concept of decorator in python. Provide an example of how would you use it to measure the execution time of a function.
+'''
+Decorators in Python are a powerful and flexible feature that allows you to modify or extend the behavior of functions or methods without modifying their actual code. Decorators are functions that wrap around other functions or methods, adding additional functionality to them.
+Here is an example of a decorator to measure the time of execution of a function:
+
+import time
+def decorator_function(func):
+    def wrapper_function(*args):
+        start = time.time()
+        result = func(*args)
+        end = time.time()
+        duration = end - start
+        print(f"Function {func.__name__} took {duration} to execute.")
+        return result
+    return wrapper_function
+
+@decorator_function
+def square(lst):
+    res = []
+    for i in lst:
+        res.append(i**2)
+    return res
+
+@decorator_function
+def cube(lst):
+    res = []
+    for i in lst:
+        res.append(i**3)
+    return res
+
+lst = list(range(1000))
+print(square(lst))
+print(cube(lst))
+'''
