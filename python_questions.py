@@ -329,3 +329,237 @@ lst = list(range(1000))
 print(square(lst))
 print(cube(lst))
 '''
+#22. What are metaclasses in Python? Provide a practical example where you would use a metaclass.
+'''
+In Python a metaclass is a class used to create other classes. It is also called as class of a class. It allows us to customize how classes are created and behave.
+Suppose we want to create a framework where all subclasses of a particular base class should auto matically register themselves in a registry.
+
+class RegistryMeta(type):
+    def __init__(cls, name, bases, attrs):
+        super().__init__(name, bases, attrs)
+        if not hasattr(cls, 'registry'):
+            cls.registry = {}
+        else:
+            cls.registry[cls.__name__] = cls
+
+class BaseClass(metaclass=RegistryMeta):
+    pass
+class SubClass1(BaseClass):
+    pass
+class SubClass2(BaseClass):
+    pass
+    
+print(BaseClass.registry)
+'''
+#23. What is the purpose of the _slots_ attribute in Python classes? How does it affect memory usage and object initialization?
+'''
+The __slots__ attribute in Python classes is used to explicitly declare which attributes a class instance can have. 
+Here's how it affects memory usage and object initialization:
+
+Memory Usage: Without __slots__, each instance of a class in Python has a __dict__ attribute, which is a dictionary that stores all of the instance's attributes and their values. This dynamic nature of attribute storage can consume more memory, especially for instances with a large number of attributes.When you use __slots__, you're essentially preventing the creation of __dict__ for each instance. Instead, memory is allocated only for the attributes specified in __slots__. This can result in significant memory savings, especially when you have a large number of instances.
+
+Object Initialization: When you define __slots__, Python generates more efficient accessor methods for accessing and setting attribute values. This can lead to slightly faster attribute access and modification compared to using __dict__.
+
+few considerations to keep in mind when using __slots__:
+
+You cannot add new attributes to instances at runtime unless they are listed in __slots__.
+__slots__ can make code less flexible and harder to maintain if used incorrectly, especially if you need to dynamically add attributes to instances.
+
+Here is an example of using __slot__
+class Person:
+    __slots__ = ['name', 'age']  # Only 'name' and 'age' attributes are allowed
+    
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+# Memory usage comparison
+import sys
+
+p1 = Person("Alice", 30)
+p2 = Person("Bob", 25)
+
+print(sys.getsizeof(p1))  # Size of p1 object
+print(sys.getsizeof(p2))  # Size of p2 object
+
+# Accessing attributes
+print(p1.name)  # Output: Alice
+print(p2.name)  # Output: Bob
+
+# Uncommenting the following line will raise an AttributeError since 'city' is not in __slots__
+# p1.city = "New York"
+'''
+#24. Explain the concept of context managers in Python and provide examples of built-in and custom context managers.
+'''
+Context managers in Python provide a way to manage resources (such as files, database connections, etc.) efficiently, ensuring that they are properly initialized and cleaned up when they are no longer needed, even in the presence of exceptions. They are commonly used with the 'with' statement.
+The context manager protocol involves two methods: __enter__ and __exit__. When an object implements these methods, it can be used as a context manager.
+
+Here's how it works:
+
+__enter__: This method is called when entering the context (i.e., when the with statement is executed). It initializes the resource and returns it. The value returned by __enter__ is bound to the target variable after the as keyword in the with statement.
+
+__exit__: This method is called when exiting the context (i.e., when the block inside the with statement completes execution). It performs any necessary cleanup actions, such as closing files or releasing resources. It also handles exceptions that occur within the context. If an exception is raised within the context, it is passed to __exit__, allowing the context manager to handle it gracefully.
+
+# Using built-in context manager with a file
+with open('example.txt', 'w') as f:
+    f.write('Hello, world!')
+
+Now, let's create a custom context manager using the contextlib module:
+
+from contextlib import contextmanager
+
+@contextmanager
+def my_context():
+    # Code executed before entering the context
+    print("Entering the context")
+    
+    try:
+        # Yield control back to the caller
+        yield
+    finally:
+        # Code executed after exiting the context
+        print("Exiting the context")
+
+# Using the custom context manager
+with my_context():
+    print("Inside the context")
+'''
+#25. Discuss the use of the async and await keywords in Python. When would you use asynchronous programming, and what are its benefits?
+'''
+The async and await keywords in Python are used to define asynchronous functions and manage asynchronous code execution. Asynchronous programming allows you to write code that can perform multiple tasks concurrently without blocking the execution of other code. This is particularly useful when dealing with I/O-bound operations, such as network requests, file I/O, or database queries, where the program would otherwise be waiting for a response.
+
+async: This keyword is used to define a function as asynchronous. It indicates that the function will execute asynchronously and may contain await expressions.
+
+await: This keyword is used inside an async function to await the result of another asynchronous function or coroutine. When await is used, it suspends the execution of the current coroutine until the awaited coroutine is complete and returns its result.
+
+import asyncio
+
+async def async_task():
+    print("Task started")
+    await asyncio.sleep(3)  # Simulate an asynchronous operation
+    print("Task completed")
+
+async def main():
+    await async_task()
+    print("Main function completed")
+
+# Run the asynchronous main function
+asyncio.run(main())
+'''
+#26. What are some common design patterns used in Python? Provide examples of when you would use each pattern.
+'''
+Python supports various design patterns that help organize and structure code in a way that enhances readability, maintainability, and reusability.
+Here are some common design patterns in Python:
+
+1. Singleton Pattern:
+Description: Ensures that a class has only one instance and provides a global point of access to that instance.
+
+Example: Used for logging, database connections, or configuration settings.
+
+class Singleton:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+s1 = Singleton()
+s2 = Singleton()
+print(s1 is s2)  # Output: True
+
+2. Factory Pattern:
+Description: Creates objects without exposing the instantiation logic to the client and refers to the newly created object through a common interface.
+
+Example: Used to create instances of different subclasses based on some criteria.
+
+class Dog:
+    def speak(self):
+        return "Woof!"
+
+class Cat:
+    def speak(self):
+        return "Meow!"
+
+class AnimalFactory:
+    def get_animal(self, animal_type):
+        if animal_type == 'dog':
+            return Dog()
+        elif animal_type == 'cat':
+            return Cat()
+
+factory = AnimalFactory()
+dog = factory.get_animal('dog')
+cat = factory.get_animal('cat')
+print(dog.speak())  # Output: Woof!
+print(cat.speak())  # Output: Meow!
+
+3. Observer Pattern:
+Description: Defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
+
+Example: Used in event handling systems, GUI frameworks, or publisher-subscriber models.
+
+class Subject:
+    def __init__(self):
+        self._observers = []
+
+    def attach(self, observer):
+        self._observers.append(observer)
+
+    def notify(self, value):
+        for observer in self._observers:
+            observer.update(value)
+
+class Observer:
+    def update(self, value):
+        print("Received value:", value)
+
+subject = Subject()
+observer1 = Observer()
+observer2 = Observer()
+
+subject.attach(observer1)
+subject.attach(observer2)
+
+subject.notify(42)
+
+4. Decorator Pattern:
+Description: Allows behavior to be added to objects dynamically without affecting their behavior. It wraps an object to extend its functionality.
+
+Example: Used for adding logging, caching, or authorization to functions or methods.
+
+def logged(func):
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__} with args: {args}, kwargs: {kwargs}")
+        return func(*args, **kwargs)
+    return wrapper
+
+@logged
+def add(x, y):
+    return x + y
+
+print(add(3, 4))  # Output: Calling add with args: (3, 4), kwargs: {}, 7
+'''
+#27. Discuss the use of Python's multiprocessing module for parallel computing. How does it differ from the threading module, and when would you choose one over the other.
+'''
+Python's multiprocessing module provides a way to create processes, which are separate instances of the Python interpreter, to achieve parallelism. Each process runs in its own memory space, allowing true parallel execution of code. This is in contrast to the threading module, which provides threads, which are lighter-weight than processes and share the same memory space.
+
+1. Parallelism vs. Concurrency:
+- multiprocessing achieves parallelism by running multiple processes simultaneously, each with its own memory space. This allows CPU-bound tasks to be executed concurrently on multiple CPU cores.
+
+- threading achieves concurrency by running multiple threads within the same process, sharing the same memory space. This is more suitable for I/O-bound tasks where threads can perform non-blocking I/O operations simultaneously.
+
+2. Global Interpreter Lock (GIL):
+- Python's Global Interpreter Lock (GIL) restricts the execution of multiple threads within the same process to run concurrently. This means that in a multi-threaded Python program, only one thread can execute Python bytecode at a time. Therefore, threading is not effective for CPU-bound tasks that require true parallelism.
+
+- multiprocessing, on the other hand, bypasses the GIL by running separate processes, allowing true parallel execution of CPU-bound tasks on multiple CPU cores.
+
+3. Memory Overhead:
+- Creating processes using multiprocessing incurs more memory overhead compared to creating threads using threading. This is because each process has its own memory space.
+
+- threading is more lightweight in terms of memory usage because threads within the same process share memory.
+
+4. When to Choose:
+- Use multiprocessing when you need true parallelism for CPU-bound tasks, such as intensive mathematical computations or data processing tasks that can be split into smaller chunks.
+- Use threading when you need concurrency for I/O-bound tasks, such as network requests, file I/O, or database operations, where threads can perform non-blocking I/O operations simultaneously.
+'''
