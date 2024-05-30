@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body{
+            background: linear-gradient(90deg, orange, purple);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-3 col-md-6 text-center">
+                <h1 class="text-center display-3">My Portfolio</h1>
+                <h3 class="text-center">All Projects are...</h3>
+                <table class="table table-bordered table-hover">
+                    <thead class="bg-success">
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Project Description</th>
+                            <th>Image</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-warning">
+                        {% for project in projects %}
+                        <tr>
+                            <td><a href="">{{project.title}}</a></td>
+                            <td>{{project.description}}</td>
+                            <td><img src="{{project.image_url}}" alt="{{project.title}}" height="100px" width="100px"></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{{ url_for('add_project') }}" class="btn btn-md btn-outline-primary mt-5">Add New Project</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
