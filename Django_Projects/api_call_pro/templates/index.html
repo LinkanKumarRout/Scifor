@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    {% include 'cdnlines.html' %}
+    <style>
+        body{
+            background: linear-gradient(90deg, purple, blue);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            {% if data %}
+            <h3 class="text-center display-4">GET Request Data</h3>
+            <div class="offset-md-2 col-md-8">
+                <a href="" class="btn btn-sm btn-primary mb-4">POST Something ?</a>
+                <a href="" class="btn btn-sm btn-warning ml-3 mb-4">PUT Something ?</a>
+                <a href="" class="btn btn-sm btn-danger ml-3 mb-4">DELETE Something ?</a>
+                <table class="table table-bordered table-hover">
+                    <thead class="bg-success">
+                        <tr>
+                            <td>Rows</td>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-warning">
+                        {% for i in data %}
+                            <tr>
+                                <td>{{i}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <h3 class="text-center display-4">No Data is available</h3>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{student.first_name}} Details</title>
+    {% include 'cdnlines.html' %}
+    <style>
+        body{
+            background-color: aqua;
+        }
+        .stu{
+            border: 2px solid white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="offset-md-3 col-md-6 bg-success mt-5 stu">
+                <h1>{{student.first_name}} {{student.last_name}}</h1>
+                <p>Email: {{student.email}}</p>
+                <h2>Borrowed Books</h2>
+                <ul>
+                {% for borrow in borrows %}
+                    <tr>
+                        <li>{{borrow.book.title}} Borrowed on {{borrow.borrowed_date}}</li>
+                    </tr>
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="offset-md-3 col-md-6">
+                <center>
+                    <a href="{% url 'homepage' %}" class="btn btn-md btn-outline-primary mt-3">Go to HomePage</a>
+                </center>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

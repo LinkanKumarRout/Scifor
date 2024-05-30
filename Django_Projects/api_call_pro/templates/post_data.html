@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST | PUT | DELETE data</title>
+    {% include 'cdnlines.html' %}
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="offset-md-2, col-md-8 text-center">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <h3 class="text-center">Your Data</h3>
+                    <label for="">Data</label>
+                    <textarea name="area" id="" rows="15" cols="30"></textarea>
+                </form>
+                <center>
+                    <input type="submit" value="POST" class="btn btn-sm btn-outline-primary">
+                    <a href="" class="btn btn-sm btn-outline-warning ml-4">PUT</a>
+                    <a href="" class="btn btn-sm btn-outline-danger ml-4">DELETE</a>
+                </center>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

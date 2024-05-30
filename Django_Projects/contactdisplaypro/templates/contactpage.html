@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Page</title>
+    {% include 'cdnlines.html' %}
+</head>
+<body>
+    <style>
+        form{
+            border: 2px solid white;
+            margin-top: 50px;
+            padding: 20px;
+            box-shadow: 0 0 10px black;
+            border-radius: 10px;
+        }
+        body{
+            background: linear-gradient(90deg, orange, blue);
+        }
+        label{
+            color: black;
+        }
+        input[name]{
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="offset-md-4 col-md-4">
+                <h3 class="text-center display-4">Please Enter Your Data</h3>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <label for="">First Name</label>
+                    <input type="text" class="form-control" name="fname">
+
+                    <label for="">Last Name</label>
+                    <input type="text" class="form-control" name="lname">
+
+                    <label for="">Email ID</label>
+                    <input type="email" name="email" id="" class="form-control">
+
+                    <label for="">Mobile</label>
+                    <input type="number" class="form-control" name="mobile">
+
+                    <label for="">Skill</label>
+                    <input type="text" class="form-control" name="skill">
+
+
+                    <label for="">Location</label>
+                    <input type="text" class="form-control" name="loc">
+
+                    <center>
+                        <input type="submit" value="Submit" class="btn btn-sm btn-outline-success mt-4">
+                        <input type="reset" value="Clear" class="btn btn-sm btn-outline-danger mt-4">
+                        <a href="{% url 'data' %}" class="btn btn-sm btn-primary mt-4">See All Contacts</a>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

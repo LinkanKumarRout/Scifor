@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include 'cdnlines.html' %}
+    <title>Home Page</title>
+    <style>
+        body{
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="col-md-12">
+            <h1 class="text-center display-3">Todo App</h1>
+        </div>
+        <div class="offset-md-10 col-md-2">
+            <a href="{% url 'create' %}" class="btn btn-sm btn-outline-primary">Add New Task</a>
+        </div>
+        <div>
+            {% if data %}
+            <table class="table table-bordered table-hover mt-4">
+                <thead class="bg-success">
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Time</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-warning">
+                    {% for i in data %}
+                    
+                    <tr>
+                        <td>{{i.title}}</td>
+                        <td>{{i.description}}</td>
+                        <td>{{i.created_at}}</td>
+                        <td>
+                            {% if i.completed == False %}
+                            <a href="{% url 'completed' i.id %}" class="btn btn-sm btn-outline-success">Completed</a>
+                            {% else %}
+                            <a href="{% url 'delete' i.id %}" class="btn btn-sm btn-outline-danger">Completed</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <h2 class="text-center">No Task Available...</h2>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

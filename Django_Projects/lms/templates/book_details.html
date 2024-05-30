@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{book.title}}</title>
+    {% include 'cdnlines.html' %}
+    <style>
+        body{
+            background-color: aqua;
+        }
+        .boo{
+            border: 2px solid white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="offset-md-3 col-md-6 bg-success mt-5 boo">
+                <h1>{{book.title}}</h1>
+                <p>Author: {{book.author}}</p>
+                <p>ISBN: {{book.is_bn}}</p>
+                <p>Published Date: {{book.published_date}}</p>
+            </div>
+            <div class="offset-md-3 col-md-6">
+                <center>
+                    <a href="{% url 'homepage' %}" class="btn btn-md btn-outline-primary mt-3">Go to HomePage</a>
+                </center>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

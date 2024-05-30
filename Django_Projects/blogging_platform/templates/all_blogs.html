@@ -1,0 +1,27 @@
+{% extends 'master.html' %}
+
+{% block title %}All Blogs{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        {% for blog in blogs %}
+        <div class="col-md-4 mt-4 mb-4">
+            <div class="card">
+                <img src="{{ blog.image.url }}" alt="{{ blog.title }}" width="100%" height="200px">
+                <div class="card-body">
+                    <h3>{{blog.title}}</h3>
+                    <p>{{blog.description}}</p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{% url 'edit_blog' blog.id %}" class="btn btn-sm btn-outline-success">Edit</a>
+                    <a href="{% url 'delete_blog' blog.id %}" class="btn btn-sm btn-outline-danger">Delete</a><br>
+                    <small class="card-text">Created at: {{ blog.created_at }}</small> <br>
+                    <small class="card-text">Updated at: {{ blog.updated_at }}</small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Task</title>
+    {% include 'cdnlines.html' %}
+    <style>
+        form{
+            border: 2px solid white;
+            border-radius: 10px;
+            margin-top: 40px;
+            padding: 20px;
+            box-shadow: 0 0 10px black;
+        }
+        body{
+            background: linear-gradient(90deg, orange, blue);
+        }
+        label{
+            color: black;
+        }
+        input{
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-3 col-md-6">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <h3 class="text-center">Enter your data</h3>
+                    <label for="">Title</label>
+                    <input type="text" class="form-control" name="title">
+
+                    <label for="">Description</label>
+                    <textarea name="description" id="" rows="10" cols="30" class="form-control"></textarea>
+
+                    <center>
+                        <input type="submit" value="Create" class="btn btn-md btn-success mt-4">
+                        <input type="reset" value="Clear" class="btn btn-md btn-danger mt-4 ml-3">
+                        <div>
+                            <a href="{% url 'home' %}" class="btn btn-md btn-primary mt-4">Go Back</a>
+                        </div>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

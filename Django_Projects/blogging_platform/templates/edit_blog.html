@@ -1,0 +1,27 @@
+{% extends 'master.html' %}
+
+{% block title %}Edit Blogs{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="offset-md-4 col-md-4">
+            <form action="" method="post">
+                {% csrf_token %}
+                <h3 class="text-center mb-4">Edit Blog</h3>
+                <label for="">Name</label>
+                <input type="text" class="form-control" value="{{blog.title}}" name="title">
+
+                <label for="">Description</label>
+                <textarea name="description" id="" cols="36" rows="10">{{blog.description}}</textarea><br>
+
+                <label for="">Image</label>
+                <input type="image" src="{{blog.image.url}}" alt="{{blog.title}}" height="200px" width="100%">
+                <input type="file" name="image" class="form-control">
+
+                <input type="submit" value="Update" class="btn btn-sm btn-primary mt-4">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
