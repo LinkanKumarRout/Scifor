@@ -22,5 +22,9 @@ class Test_Calc(unittest.TestCase):
         self.assertEqual(calc.div(-1, 1), -1)
         self.assertEqual(calc.div(-1, -1), 1)
 
+        # context manager is used to write testcases for exception
+        with self.assertRaises(ValueError):
+            calc.div(10, 0)
+
 if __name__ == '__main__':
     unittest.main()
