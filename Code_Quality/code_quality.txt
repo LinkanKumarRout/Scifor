@@ -1,0 +1,70 @@
+1. What is code quality. why it is important in software devlopment ?
+- Code quality refers to the quality of code i.e code must be readable, efficient, maintainable, testable etc.
+- if our code quality is bad, it will not meet our requirements.
+
+2. What are some common metrics used to measure code quality ?
+- Some important measures to maintaint our code quality are...
+- Code Readability
+- Code Testability
+- Code Complexity
+- Code Maintainability
+- Code Duplication
+- Code Documentation etc.
+
+3. What is static code analysis and how does it help in assessing code quality ?
+- Static code analysis refers to check code quality before executing it. It will improve our code quality before we executing our code.
+- There are some good modules available in python to check our code quality
+- Some of them are pylint, flake8, eslint etc.
+
+4. What are unit tests ? Why are these important in maintaining code quality ?
+- Unit tests refers to small or tiny test cases. Which will help us finding early bug, encouraging modular design, code correctness, good documentation etc.
+- python supports a built-in module named 'unittest' which helps us creating testcases.
+- By the help of unit testing we can isolate our code so that it is maintainable and helps us in building high-quality software.
+
+5. Explain the concept of Test driven development(TDD) & how it's contribute to code quality ?
+- Test Driven Development means writing our testcases before writing our actual code.
+- This process means writing a test case for a specific functionality, then writing minimum amount of code to satisfy our test case.
+- Some of the benefits of TDD are...
+- Improved code quality
+- Early Bug Detection
+- Documentation of code
+- Reducing debugging time
+- etc.
+
+6. What is code coverage and how does it relate to testing code quality ?
+- Code Coverage means the extent to which our source code is executed when we run some particular test case.
+- It helps us to find which part of our code are tested and which are not.
+- Some of the important aspects of code coverage are...
+- Method coverage i.e to check all defined methods are called or not
+- statement coverage i.e to check reach line of our code is executed or not
+- condition coverage which means to check each condition is executed to a value same as true or false or not
+
+7. Describe the purpose of linting tools in maintaining code quality ?
+- Linting tools are automated tools which analyze our source code to detect errors, code standards and consistency.
+- it's primary purpose is to improve code quality, readability, mainatainability.
+- Some of the examples of linting tools are.. eslint, pylint, rubocop etc.
+
+8. How do you identify code smells, and why should they be addressed in maintaining code quality ?
+- We can say that code smells is just like identifying problems in the source code.
+- These are symptoms of poor design quality which is hard to maintain.
+- Some common code smells are...
+- Duplicated code
+- Long Method names
+- Large class
+- Long parameter list
+- Switch statements etc.
+
+9. What is refactoring and how does it improve code quality ?
+- Refactoring refers to restructure our existing code without changing it's external behavior.
+- We can restructure our code by simplifying complex expressions, breaking down large methods, renaming variables for clarity etc.
+- we can also remove dulicate code so that it will improve our code quality.
+
+10. Explain the importance of code reviews in ensuring code quality ?
+- Code reviews before executing our code helps us clarifying syntax, logics so that we will not get any error while executing our code.
+- It also help us in sharing of knowledge among our team members. also we can check code vulnerability.
+
+11. Difference between black-box and white-box testing ?
+- Black-box testing refers to the technique where internal design and implementaination is known to the tester.
+- This generally focus on input and output of our software syatem without considering how internal process works.
+
+- While in white-box testing tester has the full visibility of internal qorking of applicationto the tester.
