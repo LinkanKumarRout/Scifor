@@ -1,5 +1,5 @@
 # DRF
-# it is a micro web framework of python used to vreate a simple web application
+# it is a micro web framework of python used to create a simple web application
 
 
 # In python there is a module named json generally used to work with Json
@@ -56,5 +56,5 @@ from rest_framework.response import Response
 json_data  = JSONRenderer().render(seriaizer.data)
 
 # JsonResponse
-# it is a sunclass of HTTPResponse class
+# it is a subclass of HTTPResponse class
 '''
