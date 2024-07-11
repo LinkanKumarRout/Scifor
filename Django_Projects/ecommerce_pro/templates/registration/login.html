@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    {% include 'cdnlines.html' %}
+    <style>
+        .navbar-custom {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        body{
+            background-color: antiquewhite;
+        }
+        .data{
+            margin-top: 57px;
+            background-color: antiquewhite;
+        }
+        form{
+            border: 2px solid white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px blue;
+            padding: 20px;
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        {% include 'navbar.html' %}
+        <div class="row data">
+            <div class="offset-md-4 col-md-4">
+                <form action="" method="post">
+                    <h3 class="text-center">LogIn Form</h3>
+                    {% csrf_token %}
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" required><br>
+                    <center>
+                        <input type="submit" value="LogIn" class="btn btn-md btn-primary">
+                        <input type="reset" value="Clear" class="btn btn-md btn-danger">
+                        <p class="mt-4">Did't have an account !! <a href="{% url 'signup' %}">SignUp</a></p>
+                    </center>
+                </form>
+            </div>
+        </div>
+        {% include 'footer.html' %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+  <div class="container-fluid">
+      <!-- Navbar brand -->
+      <a class="navbar-brand" href="{% url 'home' %}">E-Commerce</a>
+
+      <!-- Toggler/collapsibe Button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar links -->
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'home' %}">All Products</a>
+              </li>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Categories
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      {% for category in categories %}
+                      <a class="dropdown-item" href="{% url 'category_products' category.id %}">{{category.name}}</a>
+                      {% endfor %}
+                  </div>
+              </li>
+          </ul>
+          <!-- Login and Signup buttons -->
+          <div class="form-inline my-2 my-lg-0">
+            {% if user.is_authenticated %}
+            <span class="navbar-text mr-2">Hello, {{ user.username }}!</span>
+            <a class="btn btn-outline-secondary mr-2" href="{% url 'cart_view' %}">
+                Cart <span class="badge badge-light">{{ request.user.cart_set.count }}</span>
+            </a>            
+            <a class="btn btn-outline-danger mr-2" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a class="btn btn-outline-success mr-2" href="{% url 'login' %}">Login</a>
+            <a class="btn btn-outline-primary" href="{% url 'signup' %}">Signup</a>
+            {% endif %}
+          </div>
+      </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</nav>

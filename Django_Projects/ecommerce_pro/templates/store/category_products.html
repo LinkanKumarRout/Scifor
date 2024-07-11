@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ selected_category.name }} Products</title>
+  {% include 'cdnlines.html' %}
+  <style>
+    .navbar-custom {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+    }
+    .list{
+      padding-top: 40px;
+      background-color: antiquewhite;
+    }
+    .product-card {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      box-shadow: 0 0 5px blue;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      padding: 20px;
+      max-height: 420px;
+    }
+    .product-image {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 10px;
+    }
+    .btn-view,
+    .btn-add-to-cart {
+      display: inline-block;
+    }
+    .quantity-input {
+      width: 60px; /* Adjust as needed */
+      margin-right: 10px; /* Add spacing between input and button */
+    }
+    .cat-name{
+        padding-top: 57px;
+        background-color: antiquewhite;
+    }
+  </style>
+</head>
+<body>
+  {% include 'navbar.html' %}
+
+  <div class="container-fluid">
+    <div class="row cat-name">
+        <h2 class="ml-3 display-4">{{ selected_category.name }} Products</h2>
+    </div>
+    <div class="row list">
+        {% if products %}
+            {% for product in products %}
+                <div class="col-md-4">
+                <div class="product-card">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" class="product-image" alt="{{ product.name }}">
+                    {% else %}
+                    <img src="/media/default.jpeg" class="product-image" alt="Default Image">
+                    {% endif %}
+                    <h5>{{ product.name }}</h5>
+                    <p>{{ product.description }}</p>
+                    <p>Price: ${{ product.price }}</p>
+                
+                    <div class="d-flex align-items-center">
+                    <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-primary btn-view btn-sm">View Product</a>
+                    <form action="{% url 'add_to_cart' product.id %}" method="post">
+                        {% csrf_token %}
+                        <label class="ml-2">Quantity</label>
+                        <input type="number" name="quantity" class="quantity-input mt-1" value="1" min="1">
+                        <button type="submit" class="btn btn-outline-success btn-add-to-cart btn-sm">Add to Cart</button>
+                    </form>
+                    </div>
+                </div>
+                </div>
+            {% endfor %}
+        {% else %}
+        <div class="ml-4 mt-4">
+            <h3 class="text-center">No Products available...</h3>
+            <br><br><br><br><br><br><br><br><br>
+        </div>
+        {% endif %}
+    </div>
+    {% include 'footer.html' %}
+  </div>
+</body>
+</html>

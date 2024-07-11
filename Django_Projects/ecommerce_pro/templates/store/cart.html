@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <style>
+        .data{
+            margin-top: 60px;
+            background-color: antiquewhite;
+            padding-bottom: 30px;
+        }
+        .navbar-custom {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        }
+        .cbody{
+            background-color: aqua;
+        }
+    </style>
+    {% include 'cdnlines.html' %}
+</head>
+<body>
+    {% include 'navbar.html' %}
+    
+    <div class="container-fluid">
+        <div class="row data">
+            <div class="col-md-12">
+                <h2 class="text-center display-4 mt-3 mb-3">Welcome to your cart</h2>
+                <div class="row">
+                    <div style="text-align: right; width: 100%;">
+                        <a href="{% url 'home' %}" class="btn btn-outline-primary btn-sm mb-2 mr-3">Continue Shopping</a>
+                    </div>
+                </div>
+                <div class="row">
+                    {% if request.user.cart_set.all %}
+                    {% for item in request.user.cart_set.all %}
+                        <div class="col-md-4">
+                            <div class="card mb-3" style="max-height: 400px;">
+                                <div class="card-body cbody">
+                                    <div class="d-flex">
+                                        <img src="{{ item.product.image.url }}" class="mr-3" alt="{{ item.product.name }}" style="width: 150px; height: 150px;">
+                                        <div>
+                                            <h5 class="card-title">{{ item.product.name }}</h5>
+                                            <p class="card-text">{{ item.product.description }}</p>
+                                            <p>Price: ${{item.product.price}}</p>
+                                        </div>
+                                    </div>
+                                    <!-- <p class="card-text mt-4">Quantity: <input type="number" name="quantity" value="{{ item.quantity }}" min="1"></p> -->
+                                    <form action="{% url 'update_cart' item.id %}" method="post" class="mt-4">
+                                        {% csrf_token %}
+                                        <label for="quantity">Quantity: </label>
+                                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                                        <button type="submit" class="btn btn-sm btn-primary ">Add</button>
+                                    </form>
+                                    <div style="text-align: center;">
+                                        <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-outline-danger btn-sm mt-3">Remove</a>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                        {% if forloop.counter|divisibleby:3 %}
+                            </div><div class="row">
+                        {% endif %}
+                    {% endfor %}
+                    <div class="col-md-12">
+                        <center>
+                            <form action="{% url 'purchase_view' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Purchase</button>
+                            </form>
+                        </center>
+                    </div>
+                    {% else %}
+                    <div class="col-md-12 text-center">
+                        <h2>Nothing is inside your Cart</h3>
+                        <h5>First Try Adding One...</h5>
+                    </div><br><br><br><br><br><br><br><br>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html' %}   
+</body>
+</html>

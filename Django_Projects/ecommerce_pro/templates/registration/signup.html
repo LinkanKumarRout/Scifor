@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp New User</title>
+    {% include 'cdnlines.html' %}
+    <style>
+        .navbar-custom {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        body{
+            background-color: antiquewhite;
+        }
+        .data{
+            margin-top: 57px;
+            background-color: antiquewhite;
+        }
+        form{
+            border: 2px solid white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px blue;
+            padding: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container-fluid">
+            <!-- Navbar brand -->
+            <a class="navbar-brand" href="{% url 'home' %}">E-Commerce</a>
+  
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+  
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">All Products</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Categories
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            {% for category in categories %}
+                            <a class="dropdown-item" href="#">{{category.name}}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                </ul>
+                <!-- Login and Signup buttons -->
+                <div class="form-inline my-2 my-lg-0">
+                    <a class="btn btn-outline-primary mr-2" href="{% url 'login' %}">Login</a>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row data">
+            <div class="offset-md-4 col-md-4">
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <form method="POST">
+                    <h3 class="text-center">Enter Your Details</h3>
+                    {% csrf_token %}
+                    <label for="firstname">First Name:</label>
+                    <input type="text" id="firstname" name="firstname" class="form-control" required>
+                    <label for="lastname">Last Name:</label>
+                    <input type="text" id="lastname" name="lastname" class="form-control" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                    <label for="password1">Password:</label>
+                    <input type="password" id="password1" name="password1" class="form-control" required>
+                    {% if message1 %}
+                    <label for="">{{message1}}</label>
+                    {% endif %}
+                    <label for="password2">Confirm Password:</label>
+                    <input type="password" id="password2" name="password2" class="form-control" required><br>
+                    <center>
+                        <input type="submit" value="SignUp" class="btn btn-md btn-primary">
+                        <input type="reset" value="Clear" class="btn btn-md btn-danger">
+                        <p class="mt-4">Already have an account !! <a href="{% url 'login' %}">LogIn</a></p>
+                    </center>
+                </form>
+            </div>
+        </div>
+        {% include 'footer.html' %}
+    </div>
+</body>
+</html>

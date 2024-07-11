@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Confirmation</title>
+    {% include 'cdnlines.html' %}
+    <style>
+        .confirmation {
+            text-align: center;
+            padding-top: 150px;
+            background-color: antiquewhite;
+            padding-bottom: 150px;
+        }
+        .navbar-custom {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container-fluid">
+        <div class="confirmation">
+            <h1>Thank you for your purchase!</h1>
+            <p>Your order has been placed successfully.</p>
+            <p>Total Amount: ${{ total_amount }}</p>
+            <a href="{% url 'home' %}" class="btn btn-primary">Continue Shopping</a>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>
